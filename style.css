@@ -5,6 +5,10 @@ body {
     background-color: #1b9645;
     background-image: linear-gradient(to bottom, #1b9645 0%, #1b9645 100%);
 }
+
+section {
+    transition: background 0.5s ease;
+}
 /* Custom scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
