@@ -19,21 +19,14 @@
     class="pt-32 pb-20 px-4 md:px-8 lg:px-16 text-white relative"
     style="background: url('https://images.unsplash.com/photo-1586107679627-b73d3dd34a73?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0') center/cover no-repeat"
   >
-    <!-- Dark overlay -->
-
     <div class="relative max-w-6xl mx-auto flex flex-col items-center text-center">
-
-      <!-- TEXT BUBBLE -->
       <div class="bg-black/60 backdrop-blur-md p-8 md:p-10 rounded-2xl shadow-xl max-w-3xl">
-        <h1 class="text-4xl md:text-5xl font-bold mb-6">
-          Get in Touch
-        </h1>
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Get in Touch</h1>
         <p class="text-xl md:text-2xl text-green-100">
           Request a free quote or ask a question — we’re happy to help and provide
           clear, honest guidance for your property.
         </p>
       </div>
-
     </div>
   </section>
 
@@ -45,13 +38,32 @@
       <div class="bg-white p-8 rounded-xl shadow-md border-2 border-[#F4B740]/20">
         <h2 class="text-2xl font-bold mb-6">Request a Free Quote</h2>
 
-        <form>
+        <form
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          action="/thank-you.html"
+          enctype="multipart/form-data"
+        >
+          <!-- Required for Netlify -->
+          <input type="hidden" name="form-name" value="contact" />
+
+          <!-- Honeypot (spam protection) -->
+          <p class="hidden">
+            <label>
+              Don’t fill this out:
+              <input name="bot-field" />
+            </label>
+          </p>
+
           <div class="mb-6">
             <label class="block text-sm font-medium mb-2">
               Your Name <span class="text-red-500">*</span>
             </label>
             <input
               type="text"
+              name="name"
               required
               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#2E7D32]"
             />
@@ -63,6 +75,7 @@
             </label>
             <input
               type="email"
+              name="email"
               required
               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#2E7D32]"
             />
@@ -74,6 +87,7 @@
             </label>
             <input
               type="tel"
+              name="phone"
               required
               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#2E7D32]"
             />
@@ -84,15 +98,16 @@
               Service Interest <span class="text-red-500">*</span>
             </label>
             <select
+              name="service"
               required
               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#2E7D32]"
             >
-              <option value="">Select a service</option>
-              <option>Lawn Mowing</option>
-              <option>Seasonal Cleanup</option>
-              <option>Property Maintenance</option>
-              <option>Gutter Cleaning</option>
-              <option>Other</option>
+              <option value="" disabled selected>Select a service</option>
+              <option value="lawn-mowing">Lawn Mowing</option>
+              <option value="seasonal-cleanup">Seasonal Cleanup</option>
+              <option value="property-maintenance">Property Maintenance</option>
+              <option value="gutter-cleaning">Gutter Cleaning</option>
+              <option value="other">Other</option>
             </select>
           </div>
 
@@ -100,11 +115,18 @@
             <label class="block text-sm font-medium mb-2">
               Upload Photos <span class="text-red-500">*</span>
             </label>
+
             <label class="flex flex-col items-center justify-center h-32 border-2 border-dashed rounded-lg cursor-pointer hover:border-[#2E7D32]">
               <i data-feather="upload" class="w-8 h-8 mb-2 text-gray-500"></i>
               <p class="text-sm text-gray-500">Click to upload or drag and drop</p>
-              <input type="file" multiple class="hidden" />
+
+              <!-- IMPORTANT: needs name="photos" for Netlify -->
+              <input type="file" name="photos" multiple required class="hidden" />
             </label>
+
+            <p class="text-xs text-gray-500 mt-2">
+              Tip: You can upload multiple images at once.
+            </p>
           </div>
 
           <button
@@ -113,6 +135,10 @@
           >
             Send Request
           </button>
+
+          <p class="text-sm text-gray-500 mt-3">
+            <span class="text-red-500">*</span> Required fields
+          </p>
         </form>
       </div>
 
